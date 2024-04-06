@@ -1,0 +1,31 @@
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+  
+  # Функция для обработки команды /start
+  def start(update, context):
+      update.message.reply_text('Привет! Я простой эхо-бот. Напиши мне что-нибудь, и я отправлю это обратно!')
+  
+  # Функция для обработки обычных сообщений
+  def echo(update, context):
+      update.message.reply_text(update.message.text)
+  
+  # Основная функция, где происходит настройка бота
+  def main():
+      # Создаем Updater и передаем ему токен вашего бота в виде строки.
+      updater = Updater('7050348323:AAGePvwERjZMXp8J0X5dDg_szBGq4HDnsY8', use_context=True)
+  
+      # Получаем диспетчер для регистрации обработчиков
+      dp = updater.dispatcher
+  
+      # Регистрируем обработчики
+      dp.add_handler(CommandHandler("start", start))
+      dp.add_handler(MessageHandler(Filters.text & ~Filters.command, echo))
+  
+      # Начинаем поиск обновлений
+      updater.start_polling()
+  
+      # Запускаем бота до тех пор, пока не нажмем Ctrl-C или процесс не будет остановлен
+      updater.idle()
+  
+  if __name__ == '__main__':
+      main()
+  from replit import db
